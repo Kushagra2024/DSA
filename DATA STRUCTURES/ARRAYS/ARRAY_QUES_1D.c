@@ -104,7 +104,7 @@ void delete_from_array()
 
     printf("Enter num to be deleted: ");
     scanf("%d", &num);
-    for (i = 0, k = 0; i < size-1; i++)
+    for (i = 0, k = -1; i < size-1; i++)
     {
         if ((arr[i] == num) && (k == 0))
         {
