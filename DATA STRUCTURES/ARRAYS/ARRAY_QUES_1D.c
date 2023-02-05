@@ -59,6 +59,7 @@ void delete_from_sorted_array()
     printf("\nEnter number to be deleted: ");
     scanf("%d",&num);
 
+    //Method 1: By using two loops
     i = 0;
     while(arr[i] != num && i < size)
     {
@@ -69,6 +70,15 @@ void delete_from_sorted_array()
         arr[i] = arr[i+1];
         i++;
     }
+    //Method 2: By using Single Loop
+    for (i = 0; i < size-1; i++)
+    {
+        if (arr[i] >= num)
+        {
+            arr[i] = arr[i+1];
+        }
+    }
+    
     size--;
     printf("\nElements in array after deletion: ");
     for (i = 0; i < size; i++)
@@ -149,17 +159,17 @@ int main()
     // insert_into_sorted_array();
 
     //Write a program to delete a number from an array that is already sorted in ascending order.
-    // delete_from_sorted_array();
+    delete_from_sorted_array();
 
     //Write a program to interchange the largest and the smallest number in an array.
-    int arr[10], size;
+    // int arr[10], size;
 
-    printf("Enter size of array: ");
-    scanf("%d", &size);
-    createArray(arr, size);
-    displayArray(arr, size);
-    interchange_max_min(arr, size);
-    displayArray(arr, size);
+    // printf("Enter size of array: ");
+    // scanf("%d", &size);
+    // createArray(arr, size);
+    // displayArray(arr, size);
+    // interchange_max_min(arr, size);
+    // displayArray(arr, size);
 
     return 0;
 }
