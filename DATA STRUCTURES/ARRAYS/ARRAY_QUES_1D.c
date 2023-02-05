@@ -88,7 +88,7 @@ void delete_from_sorted_array()
 
 }
 
-//This function deletes the first occurance of numbber from the array
+//This function deletes the first occurance of number from the array
 void delete_from_array()
 {
     int arr[10], i, num, k, size;
@@ -191,23 +191,23 @@ void interchange_max_min(int arr[], int size)
 int main()
 {
     //Write a program to insert a number in an array that is already sorted in ascending order.
-    // insert_into_sorted_array();
+    insert_into_sorted_array();
 
     //Write a program to delete a number from an array that is already sorted in ascending order.
-    // delete_from_sorted_array();
+    delete_from_sorted_array();
 
     //Write a program to delete a number from both sorted and unsorted array.
     delete_from_array();
 
     //Write a program to interchange the largest and the smallest number in an array.
-    // int arr[10], size;
+    int arr[10], size;
 
-    // printf("Enter size of array: ");
-    // scanf("%d", &size);
-    // createArray(arr, size);
-    // displayArray(arr, size);
-    // interchange_max_min(arr, size);
-    // displayArray(arr, size);
+    printf("Enter size of array: ");
+    scanf("%d", &size);
+    createArray(arr, size);
+    displayArray(arr, size);
+    interchange_max_min(arr, size);
+    displayArray(arr, size);
 
     return 0;
 }
