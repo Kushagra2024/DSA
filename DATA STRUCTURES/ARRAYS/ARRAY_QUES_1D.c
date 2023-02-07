@@ -106,11 +106,11 @@ void delete_from_array()
     scanf("%d", &num);
     for (i = 0, k = -1; i < size-1; i++)
     {
-        if ((arr[i] == num) && (k == 0))
+        if ((arr[i] == num) && (k == -1))
         {
             k = i;
         }
-        if (k != 0)
+        if (k != -1)
         {
             arr[k] = arr[k+1];
             k++;
