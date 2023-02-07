@@ -30,22 +30,53 @@ int main()
 
 /*----------------------------------------------Reading String----------------------------------------------*/
     //By Using scanf() Function
-    char str[100];
+    // char str[100];
     // printf("Enter string: ");
     // scanf("%s",str);        //limitations : only a single string can be entered. Space seperated strings are discarded
 
     //By Using gets() function
-    printf("Enter String: ");
-    gets(str);      //This method overcomes the limitations of scanf function
+    // printf("Enter String: ");
+    // gets(str);      //This method overcomes the limitations of scanf function
 
     //By using getchar(), getch(), getche() fxn
 
 /*----------------------------------------------Writing String----------------------------------------------*/
     //By using printf() function
-    printf("String is: %s\n",str);
+    // printf("String is: %s\n",str);
 
     //By using puts() function
-    puts(str);
+    // puts(str);
 
+/*----------------------------------------------ARRAYS OF STRINGS----------------------------------------------*/
+    // char name[5][20] = {"ram", "shyam", "mohan", "gita", "sita"};
+    char name[5][20];
+    // int i, j;
+    // for (i = 0; i < 5; i++)
+    // {
+    //     //input in 2D array
+    //     printf("Enter name of Student[%d]: ",i+1);
+    //     gets(name[i]);
+    // }
+    // printf("Name of Students are: ");
+    // for (i = 0; i < 5; i++)
+    // {
+    //     //printing 2D array
+    //     for (j = 0; name[i][j] != '\0'; j++)
+    //     {
+    //         printf("%c", name[i][j]);
+    //     }
+    //     printf("\t");
+    // }
+    
+/*----------------------------------------------POINTERS AND STRINGS----------------------------------------------*/
+    char str[] = "kush";
+    char *spntr;
+    spntr = str;
+    printf("String is: ");
+    while (*spntr != '\0')
+    {
+        printf("%c", *spntr);
+        spntr++;
+    }
     return 0;
 }
