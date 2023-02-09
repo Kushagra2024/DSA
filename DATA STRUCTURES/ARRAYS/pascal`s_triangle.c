@@ -5,8 +5,9 @@ void genPascal_triangle(int);
 //This function generates nth row of Pascal`s Triangle
 void genPascal_row(int);
 //This function generates value of nth row & mth column of Pascal`s Triangle
-void genPascal_value(int, int);
+int genPascal_value(int, int);
 
+int binCofficient(int, int);
 int main()
 {
     int numRow, colNum;
@@ -21,66 +22,134 @@ int main()
 
     printf("\nEnter Row and Col Value: ");
     scanf("%d %d",&numRow,&colNum);
-    genPascal_value(numRow, colNum);
+    printf("Value of %dth row & %dth column: %d", numRow, colNum, genPascal_value(numRow, colNum));
 
     return 0;
 }
 
-//Time Complexity: O(n^2)
-//Space Complexity: O(n)
 void genPascal_triangle(int row)
 {
-    int mat[100] = {1}, i, j;
+    //Method 1
+        //Time Complexity: O(n^2)
+        //Space Complexity: O(n)
+    {    
+        int mat[100] = {1}, i, j;
 
-    printf("The Pascal triangle is: \n");
-    for ( i = 0; i < row; i++)
-    {   //This loop traverse backwards while finding sum of jth & j-1th term & updates the current array
-        for ( j = i; j > 0; j--)
-        {
-            mat[j] = mat[j-1] + mat[j];
+        printf("The Pascal triangle is: \n");
+        for ( i = 0; i < row; i++)
+        {   //This loop traverse backwards while finding sum of jth & j-1th term & updates the current array
+            for ( j = i; j > 0; j--)
+            {
+                mat[j] = mat[j-1] + mat[j];
+            }
+            //This array prints the value of array
+            for ( j = 0; j <= i; j++)
+            {
+                printf("%d\t", mat[j]);
+            }
+            printf("\n");
         }
-        //This array prints the value of array
-        for ( j = 0; j <= i; j++)
+    }
+
+    //Method 2
+        //Time Complexity: O(n^2)
+        //Space Complexity: O(1)
+    {
+        int result, i, j, num, den;
+        printf("%dth Row of Pascal triangle is: \n",row);
+        for ( j = 1; j <= row; j++)
         {
-            printf("%d\t", mat[j]);
+            for ( i = 1, result = 1, num = 1, den = 1; i <= j; i++)
+            {
+                printf("%d\t", result);
+                num *= (j-i);
+                den *= i;
+                result = num/den;
+            }
+            printf("\n");
+        }
+    }
+}
+
+void genPascal_row(int row)
+{
+    //Method 1
+        //Time Complexity: O(n^2)
+        //Space Complexity: O(n)
+    {    
+        int mat[100] = {1}, i, j;
+
+        printf("%dth Row of Pascal triangle is: \n",row);
+        for ( i = 0; i < row; i++)
+        {
+            for ( j = i; j > 0; j--)
+            {
+                mat[j] = mat[j-1] + mat[j];
+            }
+        }
+        for ( i = 0; i < row; i++)
+        {
+            printf("%d\t", mat[i]);
+        }
+        printf("\n");
+    }
+
+    //Method 2
+        //Time Complexity: O(n)
+        //Space Complexity: O(1)
+    {
+        int result = 1, i, num = 1, den = 1;
+        printf("%dth Row of Pascal triangle is: \n",row);
+        for ( i = 1; i <= row; i++)
+        {
+            printf("%d\t", result);
+            num *= (row-i);
+            den *= i;
+            result = num/den;
         }
         printf("\n");
     }
 }
 
-//Time Complexity: O(n^2)
-//Space Complexity: O(n)
-void genPascal_row(int row)
+int genPascal_value(int row, int col)
 {
-    int mat[100] = {1}, i, j;
+    //Method 1
+        //Time Complexity: O(n^2)
+        //Space Complexity: O(n)
+    {    
+       int mat[100] = {1}, i, j;
 
-    printf("%dth Row of Pascal triangle is: \n",row);
-    for ( i = 0; i < row; i++)
-    {
-        for ( j = i; j > 0; j--)
+        for ( i = 0; i < row; i++)
         {
-            mat[j] = mat[j-1] + mat[j];
+            for ( j = i; j > 0; j--)
+            {
+                mat[j] = mat[j-1] + mat[j];
+            }
         }
+        return mat[col-1];
     }
-    for ( i = 0; i < row; i++)
+
+    //Method 2
+        //Time Complexity: O(n)
+        //Space Complexity: O(1)
     {
-        printf("%d\t", mat[i]);
+        return(binCofficient(row, col));
     }
-    printf("\n");
+
+
 }
 
-//Time Complexity: O(n^2)
-//Space Complexity: O(n)
-void genPascal_value(int row, int col)
+int binCofficient(int n, int r)
 {
-    int mat[100] = {1}, i, j;
+    int i, result,num = 1, dem = 1;
+    n -= 1;
+    r -= 1;
 
-    for ( i = 0; i < row; i++)
+    for ( ; r > 0; n--, r--)
     {
-        for ( j = i; j > 0; j--)
-        {
-            mat[j] = mat[j-1] + mat[j];
-        }
+        num *= n;
+        dem *= r;
     }
-    printf("Value of %dth row & %dth column: %d", row, col, mat[col-1]);
+    result = num/dem;
+    return result;
 }
