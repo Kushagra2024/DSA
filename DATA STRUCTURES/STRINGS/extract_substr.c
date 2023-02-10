@@ -23,11 +23,12 @@ void extract_substr(char str[])
     scanf("%d", &len);
     i = index;
     n = strlen(str);
-    while (i < index+len && (index+len <= n))
+    while ((i < n) && (str[i] != '\0' && len > 0))
     {
         temp[k] = str[i];
         k++;
         i++;
+        len--;
     }
     temp[k] = '\0';
     printf("Given String is: ");
