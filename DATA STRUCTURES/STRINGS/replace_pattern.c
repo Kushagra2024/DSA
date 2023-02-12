@@ -1,16 +1,16 @@
 #include<stdio.h>
 #include<string.h>
-//This function repllaces a pattern with new pattern
+//This function replaces a pattern with new pattern
 void replace_pattern(char str[], char pat1[], char pat2[]);
 int match_pattern(char str[],char pat[]);
-void delete_substr(char str[], int pos, char pat[]);
-void insert_str(char str[], int pos, char pat[]);
+void insert_str(char str[], char pat1[], char pat2[], int pos);
 
 int main()
 {
     char str[] = "AAABBBCCC";
     replace_pattern(str, "BBB", "X");   //str is passed as an modifiable argument i.e as an charecter array
     replace_pattern(str, "X", "BBB");   //other arguments are not passed as char array hence not modifiable
+    replace_pattern(str, "CCC", "Y");   //other arguments are not passed as char array hence not modifiable
 
     return 0;
 }
@@ -35,39 +35,10 @@ int match_pattern(char str[],char pat[])
             return i;
         }
     }
-    if (i == (m-n+1))
-    {
-        return -1;
-    }
+    return -1;
     
 }
-void delete_substr(char str[], int pos, char pat[])
-{
-    char temp[100];
-    int i = 0, k = 0, len = strlen(pat);
-
-    while (str[i] != '\0')
-    {
-        if (i != pos)
-        {
-            temp[k] = str[i];
-            k++, i++;
-        }
-        else
-        {
-            i += len;
-        }
-    }
-    temp[k] = '\0';
-    i = 0;
-    while (temp[i] != '\0')
-    {
-        str[i] = temp[i];
-        i++;
-    }
-    str[i] = '\0';
-}
-void insert_str(char str[], int pos, char pat[])
+void insert_str(char str[], char pat1[], char pat2[], int pos)
 {
     char new_str[200];
     int i = 0, k = 0, j = 0;
@@ -76,15 +47,13 @@ void insert_str(char str[], int pos, char pat[])
     {
         if (i == pos)
         {
-            while (pat[j] != '\0')
+            while (pat2[j] != '\0')
             {
-                new_str[k] = pat[j];
+                new_str[k] = pat2[j];
                 k++;
                 j++;
             }
-            new_str[k] = str[i];
-            i++;
-            k++;
+            i = i + strlen(pat1);
         }
         else
         {
@@ -94,20 +63,13 @@ void insert_str(char str[], int pos, char pat[])
         }
     }
     new_str[k] = '\0';
-    i = 0;
-    while (i < strlen(new_str))
-    {
-        str[i] = new_str[i];
-        i++;
-    }
-    str[i] = '\0';
+    strcpy(str, new_str);
 }
 
 void replace_pattern(char str[], char pat1[], char pat2[])
 {
     int pos = match_pattern(str, pat1);
-    delete_substr(str, pos, pat1);
-    insert_str(str, pos, pat2);
+    insert_str(str, pat1, pat2, pos);
     printf("New Pattern is: ");
     puts(str);
 }
