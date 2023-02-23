@@ -32,12 +32,13 @@ public:
     ~SCLL()
     {
         Node *tptr = _head;
-        while (tptr != NULL)
+        while (tptr->next != _head)
         {
             _head = _head->next;
             delete tptr;
             tptr = _head;
         }
+        delete _head;
         cout << "List Deleted!";
     }
 
@@ -163,44 +164,86 @@ public:
         }
     }
 
-    bool ispresent(int val)
+    void ispresent(int val)
     {
         if (_head == NULL)
         {
             cout << "List empty!\n";
-            return false;
+            return;
         }
         Node *tptr = _head;
+        int count = 0;
         while (tptr->next != _head)
         {
+            count++;
             if (tptr->data == val)
             {
-                return true;
+                cout << "Data present at: " << count << "index.";
             }
             tptr = tptr->next;
         }
+        count++;
         if (tptr->data == val)
         {
-            return true;
+            cout << "Data present at: " << count << "index.";
         }
-        return false;
     }
 
     int countnode()
     {
         int count = 0;
+        if (_head == NULL)
+        {
+            return 0;
+        }
         Node *tptr = _head;
-        while (tptr != NULL && tptr->next != _head)
+        while (tptr->next != _head)
         {
             count++;
             tptr = tptr->next;
         }
-        if (tptr == NULL)
-        {
-            return 0;
-        }
         return ++count;
         
+    }
+
+    void insertafter(int val,int data)
+    {
+        if (_head == NULL)
+        {
+            cout << "List empty!\n";
+            return;
+        }
+        Node *tptr = _head;
+        while (tptr->data!= val && tptr->next != _head)
+        {
+            tptr = tptr->next;
+        }
+        if (tptr->next!= _head)
+        {
+            Node *temp = new Node(data, tptr->next);
+            tptr->next = temp;
+        }
+    }
+
+    void insertbef(int val,int data)
+    {
+        if (_head == NULL)
+        {
+            cout << "List empty!\n";
+            return;
+        }
+        if (_head->data == val)
+        {
+            addbeg(data);
+            return;
+        }
+        Node *tptr = _head;
+        while (tptr->next!= _head && tptr->next->data != val)
+        {
+            tptr = tptr->next;
+        }
+        Node *temp = new Node(data, tptr->next);
+        tptr->next = temp;
     }
 
     void printList()
@@ -221,7 +264,6 @@ public:
     }
 
 };
-
 
 int main()
 {
@@ -275,7 +317,7 @@ int main()
         case 9:
             cout << "\nEnter value to search: " ;
             cin >> data;
-            cout << list.ispresent(data);
+            list.ispresent(data);
             break;
         case 10:
             cout << "\nData in the List: ";
