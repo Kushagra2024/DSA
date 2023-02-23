@@ -46,8 +46,7 @@ public:
     
     void addbeg(int info)
     {
-        Node *tempNode = new Node(info);
-        tempNode->nxt = _head;
+        Node *tempNode = new Node(info, _head);
         _head = tempNode;
     }
     void addlast(int info)
@@ -115,49 +114,47 @@ public:
         }
         else
         {
-            while (_head->data == val && _head != NULL)
+            //Checks for Head(1st node)
+            while (_head != NULL && _head->data == val)
             {
                 delbeg();
             }
-            Node *tptr1 = _head, *tptr2;
-            while (tptr1 != NULL && tptr1->nxt != NULL)
+            //Checks for rest of the node
+            Node *tptr = _head, *temp;
+            while (tptr != NULL && tptr->nxt != NULL)
             {
-                if (tptr1->data == val)
+                if (tptr->nxt->data == val)
                 {
-                    tptr2->nxt = tptr1->nxt;
-                    cout << "Data deleted: " << tptr1->data << endl;
-                    delete tptr1;
-                    tptr1 = tptr2->nxt;
+                    temp = tptr->nxt;
+                    cout << "Data deleted: " << temp->data << endl;
+                    tptr->nxt = temp->nxt;
+                    delete temp;
                 }
                 else
                 {
-                    tptr2 = tptr1;
-                    tptr1 = tptr1->nxt;
+                    tptr = tptr->nxt;
                 }
-            }
-            if (tptr1 != NULL && tptr1->data == val)
-            {
-                dellast();
             }
         }
     }
-    bool ispresent(int val)
+    void ispresent(int val)
     {
         if (_head == NULL)
         {
             cout << "List Empty!\n";
-            return false;
+            return;
         }
         Node *tptr = _head;
+        int count = 0;
         while (tptr != NULL)
         {
+            count++;
             if(tptr->data == val)
             {
-                return true;
+                cout << "Data present at: " << count << "index.";
             }
             tptr = tptr->nxt;
         }
-        return false;
     }
     void insertbefore(int val, int info)
     {
@@ -168,6 +165,7 @@ public:
         }
         else
         {
+            //checks for head/1st idex
             if (_head->data == val)
             {
                 addbeg(info);
@@ -285,7 +283,7 @@ int main()
         case 9:
             cout << "\nEnter value to search: " ;
             cin >> data;
-            cout << list.ispresent(data);
+            list.ispresent(data);
             break;
         case 10:
             cout << "\nData in the List: ";
