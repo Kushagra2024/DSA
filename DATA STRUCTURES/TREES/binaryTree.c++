@@ -362,7 +362,41 @@ class binaryTree
             return (max((height(root->left) + height(root->right) + 1), max(diameter(root->left), diameter(root->right))));
         }
 
-
+        vector <Node *> v;
+        void iot(Node *root, Node *node)    //performs inorder traversal of tree and stores into vector
+        {
+            if(root == NULL)
+            {
+                return;
+            }
+            iot(root->left, node);
+            v.push_back(root);
+            iot(root->right, node);
+        }
+        Node*inorderSuccesor(Node *root, Node *node)
+        {
+            iot(root, node);
+            v.push_back(NULL);
+            for(int i = 0; i <= v.size()-1; i++)
+            {
+                if(v[i] == node)
+                {
+                    return v[i+1];
+                }
+            }
+        }
+        Node*inorderPredecessor(Node *root, Node *node)
+        {
+            v.push_back(NULL);
+            iot(root, node);
+            for(int i = 1; i <= v.size()-1; i++)
+            {
+                if(v[i] == node)
+                {
+                    return v[i-1];
+                }
+            }
+        }
 };
 
 int main()
@@ -392,14 +426,16 @@ int main()
         b1.levelorderTraversal();
     }
 
-    cout << "\nNumber of nodes in the Tree: " << b1.countTotalNode(b1.root);
+    // cout << "\nNumber of nodes in the Tree: " << b1.countTotalNode(b1.root);
 
-    cout << "\nNumber of Leaf nodes in the Tree: " << b1.countLeafNode(b1.root);
+    // cout << "\nNumber of Leaf nodes in the Tree: " << b1.countLeafNode(b1.root);
 
-    cout <<"\nHeight of Tree: " << b1.height(b1.root);
+    // cout <<"\nHeight of Tree: " << b1.height(b1.root);
 
-    cout <<"\nDiameter of Tree: " << b1.diameter(b1.root);
-    cout <<"\nDiameter of Tree: " << b1.diameterFast(b1.root).first;
+    // cout <<"\nDiameter of Tree: " << b1.diameter(b1.root);
+    // cout <<"\nDiameter of Tree: " << b1.diameterFast(b1.root).first;
+
+
     
     return 0;
 }
