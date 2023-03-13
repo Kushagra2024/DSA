@@ -309,6 +309,15 @@ class binaryTree
             return(countLeafNode(root->left) + countLeafNode(root->right));
         }
 
+        int countInternalnode(Node *root)
+        {
+            if ((root == NULL) || (root->left == NULL && root->right == NULL))
+            {
+                return 0;
+            }
+            return (countInternalnode(root->left) + countInternalnode(root->right) + 1);
+        }
+
         int height(Node *root)
         {
             if (root == NULL)
@@ -399,7 +408,7 @@ class binaryTree
         }
 };
 
-int main()
+int main()  //1 2 3 4 5 -1 6 -1 -1 4 -1 8 -1 -1 -1 9 -1 -1 -1
 {
     binaryTree b1;
     // b1.root = b1.buildTree(b1.root);
@@ -426,16 +435,16 @@ int main()
         b1.levelorderTraversal();
     }
 
-    // cout << "\nNumber of nodes in the Tree: " << b1.countTotalNode(b1.root);
+    cout << "\nNumber of nodes in the Tree: " << b1.countTotalNode(b1.root);
 
-    // cout << "\nNumber of Leaf nodes in the Tree: " << b1.countLeafNode(b1.root);
+    cout << "\nNumber of Leaf nodes in the Tree: " << b1.countLeafNode(b1.root);
+
+    cout << "\nNumber of Internal nodes in the Tree: " << b1.countInternalnode(b1.root);
 
     // cout <<"\nHeight of Tree: " << b1.height(b1.root);
 
     // cout <<"\nDiameter of Tree: " << b1.diameter(b1.root);
     // cout <<"\nDiameter of Tree: " << b1.diameterFast(b1.root).first;
 
-
-    
     return 0;
 }
