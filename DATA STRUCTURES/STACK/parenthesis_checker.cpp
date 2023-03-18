@@ -68,7 +68,6 @@ public:
 int main()
 {
     char arr[100];
-    int count = 0;
     Stack stk;
 
     cout << "Enter the expression: ";
@@ -83,25 +82,26 @@ int main()
             if (arr[i] == '(')
             {
                 stk.push(')');
-                count++;
             }
             if (arr[i] == '{')
             {
                 stk.push('}');
-                count++;
             }
             if (arr[i] == '[')
             {
                 stk.push(']');
-                count++;
             }
         }
-        if (arr[i] == ')' || arr[i] == '}' || arr[i] == ']' )
+        else if (arr[i] == ')' || arr[i] == '}' || arr[i] == ']' )
         {
-            if (arr[i] == stk.top())
+            if(stk.isEmpty())
+            {
+                cout << "Expression is invalid!";
+                return 0;
+            }
+            else if (arr[i] == stk.top())
             {
                 stk.pop();
-                count--;
             }
             else
             {
@@ -110,7 +110,7 @@ int main()
             }
         }
     }
-    if (count == 0)
+    if (stk.isEmpty())
     {
         cout << "Expression is Valid";
     }
